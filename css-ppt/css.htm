@@ -1,0 +1,375 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>css基础  - By 孙艳艳</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.moon.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>关于css的几个常见问题</h1>
+<p><small>分享者：孙艳艳</small></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<ul class="moveIn">
+<li>浮动</li>
+<li>定位</li>
+<li>盒模型</li>
+<li>简单的css3</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>什么是CSS Float(浮动)？</h2>
+<ul>
+    <li>会使元素向左或向右移动，直到它的外边缘碰到包含框或另一个浮动框的边框为止。</li>
+    <li>其周围的元素也会重新排列。</li>
+    <li>元素的水平方向浮动，意味着元素只能左右移动而不能上下移动。</li>
+    <li>如果你把几个浮动的元素放到一起，如果有空间的话，它们将彼此相邻。</li>
+    <li>通过 float 属性实现元素的浮动。</li>
+    <li>boostrap 中的类 .pull-right .pull-left</li>
+</ul>
+
+<p><em>参考网站：<a href="http://www.w3school.com.cn/css/css_positioning_floating.asp" target="_blank">http://www.w3school.com.cn/css/css_positioning_floating.asp</a></em></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h3>关于清除浮动</h3>
+
+</hgroup><article>
+
+<h5 style="text-align: left;">浮动带来的影响：</h5>
+
+<img src="../css-ppt/img/test_2.png" style="width:400px;">
+<img src="../css-ppt/img/test_1.jpg" alt="">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>分析代码：</p>
+<p><pre>
+<code>
+    .outer{border: 1px solid #ccc;background: #fc9;color: #fff; margin: 50px auto;padding: 50px;}
+    .div1{width: 80px;height: 80px;background: red;float: left;}
+    .div2{width: 80px;height: 80px;background: blue;float: left;}
+    .div3{width: 80px;height: 80px;background: sienna;float: left;}
+</code>
+</pre></p>
+<h3>（1）：背景不能显示 （2）：边框不能撑开 （3）：margin 设置值不能正确显示</h3>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h3>清除浮动带来的影响</h3>
+<p>总结几种方法</p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>方法一：父级div定义height</p>
+<ul>
+    <li>优点：简单，代码少，容易掌握</li>
+    <li>缺点：只适合高度固定的布局，要给出精确的高度，如果高度和父级div不一样时，会产生问题</li>
+    <li>建议：不推荐使用，只建议高度固定的布局时使用</li>
+</ul>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>方法二：添加新的元素 、应用 clear：both；</p>
+<img src="../css-ppt/img/test_2.png" style="width:400px;">
+<ul>
+    <li>优点：简单，代码少，浏览器支持好，不容易出现怪问题</li>
+    <li>缺点：不少初学者不理解原理；如果页面浮动布局多，就要增加很多空div，让人感觉很不爽</li>
+    <li>建议：不推荐使用，但此方法是以前主要使用的一种清除浮动方法</li>
+</ul>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>方法三：父级定义overflow：hidden；</p>
+<ul>
+    <li>缺点：不能和position配合使用，因为超出的尺寸的会被隐藏</li>
+</ul>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>方法三：父级div定义伪类:after和zoom</p>
+<p><pre><code>
+    .outer {zoom:1;}    /<em>==for IE6/7 Maxthon2==</em>/
+    .outer :after {
+        clear:both;
+        content:&#39;&#39;;
+        display:block;
+        width: 0;height: 0;
+        visibility:hidden;
+        }   /<em>==for FF/chrome/opera/IE8==</em>/
+</code></pre></p>
+<p style="text-align:left;">
+  利用:after和:before来在元素内部插入两个元素块，达到清除浮动的效果。其实现原理类似于clear:both方法，只是区别在于:clear在html插入一个div.clear标签，而outer利用其伪类clear:after在元素内部增加一个类似于div.clear的效果。<br></p>
+
+<p style="text-align:left;">
+延伸：关于before与after
+
+参考网站：<a href="http://www.w3school.com.cn/css/css_pseudo_elements.asp" target="_blank">http://www.w3school.com.cn/css/css_pseudo_elements.asp</a>
+个人总结：<a href="http://www.cnblogs.com/clearsky/" target="_blank">http://www.cnblogs.com/clearsky/</a>
+</p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>方法四：bootstrap 中的类 .clearfix</p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>定位</h2>
+<ul>
+<li>定位的基本思想很简单，它允许你定义元素框相对于其正常位置应该出现的位置，或者相对于父元素、另一个元素甚至浏览器窗口本身的位置。</li>
+<li>浮动不完全是定位，不过，它当然也不是正常流布局。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h3>CSS position 属性</h3>
+<ul>
+    <li>static</li>
+    <li>relative</li>
+    <li>absolute</li>
+    <li>fixed</li>
+</ul>
+
+<p><em>参考网站：<a href="http://www.w3school.com.cn/css/css_positioning.asp" target="_blank">http://www.w3school.com.cn/css/css_positioning.asp</a></em></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h4>static</h4></p>
+<ul>
+<li>HTML元素的默认值，即没有定位，元素出现在正常的流中。</li>
+<li>静态定位的元素不会受到top, bottom, left, right影响。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h4>relative</h4></p>
+<ol>
+    <li>相对定位元素的定位是相对其正常位置。</li>
+    <li>元素仍然保持其未定位前的形状，它原本所占的空间仍保留。</li>
+</ol>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h4>absolute</h4></p>
+<ol>
+    <li>设置为绝对定位的元素框从文档流完全删除，并相对于其包含块定位，包含块可能是文档中的另一个元素或者是初始包含块。即：<br>
+    绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于html；
+    </li>
+    <li>元素原先在正常文档流中所占的空间会关闭，就好像该元素原来不存在一样，因此不占据空间</li>
+    <li>元素定位后生成一个块级框，而不论原来它在正常流中生成何种类型的框。</li>
+</ol>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h4>fixed</h4></p>
+<ul>
+<li>元素的位置相对于浏览器窗口是固定位置。</li>
+<li>即使窗口是滚动的它也不会移动.</li>
+<li>Fixed定位使元素的位置与文档流无关，因此不占据空间。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h3>z-index</h3>
+<ul>
+<li>z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。</li>
+<li>元素的定位与文档流无关,所以它们可以覆盖页面上的其它元素。</li>
+<li>元素可拥有负的 z-index 属性值，如果为正数，则离用户更近，为负数则表示离用户更远。</li>
+<li>z-index 仅能在定位元素上奏效（例如 position:absolute;）</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>css框模型</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h3>框模型概念理解</h3>
+<ul>
+<li>css框模型 又称盒子模型 (Box Model) ，包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。如图：
+<img src="../css-ppt/img/test_4.gif" style="height:300px;"></li>
+<li>通常我们设置的背景显示区域，就是内容、内边距、边框这一块范围。而外边距margin是透明的，不会遮挡周边的其他元素。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h3>框模型计算方法</h3>
+<p>＊ 元素框的总宽度 = 
+元素（element）的width + padding的左边距和右边距的值 + margin的左边距和右边距的值 + border的左右宽度；</p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h3>css 外边距合并（叠加）</h3>
+<ul>
+<li>两个上下方向相邻的元素框垂直相遇时，外边距会合并，合并后的外边距的高度等于两个发生合并的外边距中较高的那个边距值，如图：
+<img src="../css-ppt/img/test_5.png" style="height:300px;"> 
+<img src="../css-ppt/img/test_6.png" style="height:200px;"></li>
+<li>需要注意的是：只有普通文档流中块框的垂直外边距才会发生外边距合并。行内框、浮动框或绝对定位之间的外边距不会合并.</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h3>box-sizing属性介绍</h3>
+<ul>
+<li>box-sizing属性是用户界面属性里的一种，之所以介绍它，是因为这个属性跟盒子模型有关，而且在css reset中有可能会用到它。</li>
+<li>box-sizing : content-box|border-box|inherit;</li>
+<li>作为思考和探究的部分。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>(1) content-box ,默认值，可以使设置的宽度和高度值应用到元素的内容框。盒子的width只包含内容。</p>
+<p>　　即总宽度=margin+border+padding+width</p>
+<p>(2) border-box , 设置的width值其实是除margin外的border+padding+element的总宽度。盒子的width包含border+padding+内容</p>
+<p>　　　　即总宽度=margin+width</p>
+<p>很多CSS框架，都会对盒子模型的计算方法进行简化。</p>
+<p>(3) inherit , 规定应从父元素继承 box-sizing 属性的值</p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>css3的常用属性</p>
+<ul>
+<li>CSS3 阴影效果</li>
+<li>2D/3D 转换 －－移动，比例化，反过来，旋转，和拉伸元素，让某个元素改变形状，大小和位置</li>
+<li>过渡效果 －－元素从一种样式逐渐改变为另一种的效果</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<ul>
+<li>text-shadow 适用于文本阴影。</li>
+</ul>
+<pre>
+    <code>
+        h1 {
+            text-shadow: 5px 5px 5px #FF0000;
+            /*水平阴影，垂直阴影，模糊的距离，以及阴影的颜色*/
+        }
+    </code>
+</pre>
+* box-shadow 适用于盒子阴影
+<pre>
+    <code>
+        div {
+            box-shadow: 10px 10px 5px grey;
+
+        }
+    </code>
+</pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<ul>
+<li><p>translate() 根据左(X轴)和顶部(Y轴)位置给定的参数，从当前元素位置移动。</p>
+<blockquote>
+<p>translate3d(x,y,z),translateX(x),translateY(y),translateZ(z)</p>
+</blockquote>
+</li>
+<li><p>rotate() 在一个给定度数顺时针旋转的元素。负值是允许的，这样是元素逆时针旋转。</p>
+</li>
+<li>scale() 大小的缩放。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<ul>
+<li>transition<blockquote>
+<p>指定要添加效果的CSS属性
+指定效果的持续时间。</p>
+</blockquote>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>end ~ 谢谢</p>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'slide3',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/zoom.js"></script>
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>
